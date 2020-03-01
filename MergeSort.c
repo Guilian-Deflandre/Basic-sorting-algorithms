@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <assert.h>
+
 #include "Sort.h"
 
 /* ========================================================================= *
@@ -15,22 +16,42 @@
 
 /* ------------------------------------------------------------------------- *
  * Merge 2 given subarrays A[p;q] & A[q+1;r] into a single array A[p;r]      *
+ *                                                                           *
  * PARAMETERS                                                                *
  *  -array        The array to treat                                         *
  *  -p            Beginning of the array                                     *
  *  -q            End of the first sub array                                 *
  *  -r            End of the second sub array and the array                  *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void merge(int* array, int p, int q, int r);
 
 /* ------------------------------------------------------------------------- *
  * Implementation of the Merge Sort algorithm                                *
+ *                                                                           *
  * PARAMETERS                                                                *
  *  -array        The array which contain the 2 elements                     *
  *  -i            The indice of the first element of the array               *
  *  -j            The indice of the last element of the array                *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void mergeSort(int* array, int p, int r);
+
+/* ------------------------------------------------------------------------- *
+ * Sort an array of size lenght using the Merge Sort algorithm               *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ *  -array        The array to sort                                          *
+ *  -length       The size of the array                                      *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
+ * ------------------------------------------------------------------------- */
+void sort(double* array, size_t length);
 
 /* ========================================================================= *
  *                                 FUNCTIONS                                 *

@@ -28,6 +28,9 @@ struct median_queue_t {
  *  -array        The array which contain the 2 elements                     *
  *  -i            The indice of the first element                            *
  *  -j            The indice of the second element                           *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void exchange(double* array,size_t i, size_t j);
 
@@ -36,30 +39,39 @@ void exchange(double* array,size_t i, size_t j);
  * PARAMETERS                                                                *
  *  -array            The array to split                                     *
  *  -pivot            The element around which we divide the table           *
- *  -end              The size of the array                                  git *
+ *  -end              The end index of the array                             *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  -new_pivot+1      The array index after the one array's elements are big-*
+ *                    ger than the pivot                                     *
  * ------------------------------------------------------------------------- */
 size_t partitioning(double* array, size_t pivot, size_t end);
 
 /* ------------------------------------------------------------------------- *
- * Implementation of the Quick Sort algorithm recursively
- * PARAMETERS
- * array        The array to sort
- * begin        The first element of the array
- * end          The size of the array
+ * Implementation of the Quick Sort algorithm                                *
+ * PARAMETERS                                                                *
+ *  -array        The array to sort                                          *
+ *  -begin        The first element of the array                             *
+ *  -end          The size of the array                                      *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void quickSort(double* array, size_t begin, size_t end);
 
 /* ------------------------------------------------------------------------- *
- * Implementation of the Quick Sort algorithm recursively
- * PARAMETERS
- * array        The array to sort
- * length       The size of the array
+ * Sort an array of size lenght using the Quick Sort algorithm               *
+ * PARAMETERS                                                                *
+ *  -array        The array to sort                                          *
+ *  -length       The size of the array                                      *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void sort(double* array, size_t length);
 
-
 /* ========================================================================= *
- *                                 FUNCTIONS
+ *                                 FUNCTIONS                                 *
  * ========================================================================= */
 
 void exchange(double* array,size_t i, size_t j){
@@ -67,7 +79,7 @@ void exchange(double* array,size_t i, size_t j){
     array[i] = array[j];
     array[j] = temporary;
 }
-/* ------------------------------------------------------------------------ */
+
 size_t partitioning(double* array, size_t pivot, size_t end){
     size_t j=0, new_pivot = pivot-1;
     for(j=pivot;j<end;j++){
@@ -79,7 +91,7 @@ size_t partitioning(double* array, size_t pivot, size_t end){
     exchange(array, new_pivot+1, end);
     return new_pivot+1;
 }
-/* ------------------------------------------------------------------------ */
+
 void quickSort(double* array, size_t begin, size_t end){
     if(begin<end){
         size_t q = partitioning(array, begin, end);
@@ -87,7 +99,7 @@ void quickSort(double* array, size_t begin, size_t end){
         quickSort(array, q+1, end);
     }
 }
-/* ------------------------------------------------------------------------ */
+
 void sort(double* array, size_t length){
     //printf("Sorted using : QuickSort\n");
 
@@ -99,7 +111,7 @@ void sort(double* array, size_t length){
 }
 
 /* ------------------------------------------------------------------------- *
- * Double comparison function.
+ * Double comparison function.                                               *
  * ------------------------------------------------------------------------- */
 static int compareDouble(const void* d1, const void* d2);
 static int compareDouble(const void* d1, const void* d2) {
@@ -110,7 +122,7 @@ static int compareDouble(const void* d1, const void* d2) {
 MedianQueue* mqCreate(const double* values, size_t size) {
     // create the median queue
     MedianQueue* mq = malloc(sizeof(MedianQueue));
-    if (!mq)
+    if(!mq)
         return NULL;
 
     mq->size = size;
@@ -118,20 +130,20 @@ MedianQueue* mqCreate(const double* values, size_t size) {
 
     // allocate circular array
     mq->circular = malloc(sizeof(double) * mq->size);
-    if (!mq->circular) {
+    if(!mq->circular){
         free(mq);
         return NULL;
     }
 
     // allocated sorted array
     mq->sorted = malloc(sizeof(double) * mq->size);
-    if (!mq->circular) {
+    if(!mq->circular){
         free(mq->circular);
         free(mq);
         return NULL;
     }
 
-    for (size_t i = 0; i < mq->size; ++i) {
+    for(size_t i = 0; i < mq->size; ++i){
         mq->circular[i] = values[i];
         mq->sorted[i] = values[i];
     }
@@ -141,25 +153,25 @@ MedianQueue* mqCreate(const double* values, size_t size) {
     return mq;
 }
 
-void mqFree(MedianQueue* mq) {
+void mqFree(MedianQueue* mq){
     free(mq->sorted);
     free(mq->circular);
     free(mq);
 }
 
-void mqUpdate(MedianQueue* mq, double value) {
-    if (!mq) {
+void mqUpdate(MedianQueue* mq, double value){
+    if(!mq)
         return;
-    }
+
     mq->circular[mq->start] = value;
     mq->start = (mq->start + 1) % mq->size;
-    for (size_t i = 0; i < mq->size; ++i) {
+    for(size_t i = 0; i < mq->size; ++i){
         mq->sorted[i] = mq->circular[(mq->start + i) % mq->size];
     }
     sort(mq->sorted, mq->size);
 }
 
-double mqMedian(const MedianQueue* mq) {
-    if (!mq) { return INFINITY; }
+double mqMedian(const MedianQueue* mq){
+    if(!mq){ return INFINITY; }
     return mq->sorted[mq->size / 2];
 }

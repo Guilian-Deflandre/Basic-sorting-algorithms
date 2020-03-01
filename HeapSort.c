@@ -12,29 +12,53 @@
 
 /* ------------------------------------------------------------------------- *
  * Transform a given heap into a max heap (bigger elements on the top)       *
+ *                                                                           *
  * PARAMETERS                                                                *
  *  -array        The array used to create an heap                           *
  *  -node         The index of the node                                      *
  *  -heapSize     The size of the heap to transform                          *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void maxHeapify(int* array,int node, int heapSize);
 
 /* ------------------------------------------------------------------------- *
  * Exchange 2 values of an array                                             *
+ *                                                                           *
  * PARAMETERS                                                                *
  *  -array        The array which contain the 2 elements                     *
  *  -i            The first element's index                                  *
  *  -j            The second element's index                                 *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void exchange(int* array,int i, int j);
 
 /* ------------------------------------------------------------------------- *
  * Build an heap based on a given array                                      *
+ *                                                                           *
  * PARAMETERS                                                                *
  *  -array        The array used to build an heap                            *
  *  -length       The size of this array                                     *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
  * ------------------------------------------------------------------------- */
 void buildMaxHeap(int* array, int length);
+
+/* ------------------------------------------------------------------------- *
+ * Sort an array of size lenght using the Heap Sort algorithm                *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ *  -array        The array to sort                                          *
+ *  -length       The size of the array                                      *
+ *                                                                           *
+ * RETURN                                                                    *
+ * /                                                                         *
+ * ------------------------------------------------------------------------- */
+void sort(double* array, size_t length);
 
 /* ========================================================================= *
  *                                FUNCTIONS                                  *

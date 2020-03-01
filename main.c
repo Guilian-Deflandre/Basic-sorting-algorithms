@@ -8,14 +8,14 @@
  *                                 PROTOTYPES                                *
  * ========================================================================= */
 /* ------------------------------------------------------------------------- *
- * Compute the CPU time (in seconds) used by the Sort function.
- *
- * PARAMETERS
- * array        Array to sort
- * length       Number of elements in the array
- *
- * RETURN
- * seconds      The number of seconds used by Sort
+ * Compute the CPU time (in seconds) used by the Sort function.              *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ * array        Array to sort                                                *
+ * length       Number of elements in the array                              *
+ *                                                                           *
+ * RETURN                                                                    *
+ * seconds      The number of seconds used by Sort                           *
  * ------------------------------------------------------------------------- */
 static double cpuTimeUsedToSort(int* array, size_t length){
     clock_t start = clock();
@@ -42,7 +42,7 @@ int main(void){
     printf("\n");
 
     const double sec = cpuTimeUsedToSort(array, sizeArray);
-    
+
     printf("CPU Time pour sizeArray = %zu: %f\n", sizeArray, sec);
     printf("\n");
 
