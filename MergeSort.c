@@ -41,18 +41,6 @@ void merge(int* array, int p, int q, int r);
  * ------------------------------------------------------------------------- */
 void mergeSort(int* array, int p, int r);
 
-/* ------------------------------------------------------------------------- *
- * Sort an array of size lenght using the Merge Sort algorithm               *
- *                                                                           *
- * PARAMETERS                                                                *
- *  -array        The array to sort                                          *
- *  -length       The size of the array                                      *
- *                                                                           *
- * RETURN                                                                    *
- * /                                                                         *
- * ------------------------------------------------------------------------- */
-void sort(double* array, size_t length);
-
 /* ========================================================================= *
  *                                 FUNCTIONS                                 *
  * ========================================================================= */

@@ -7,20 +7,19 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "Sort.h"
-#include "MedianQueue.h"
+/* ========================================================================= *
+ *                               PROTOTYPES                                  *
+ * ========================================================================= */
 
-
-
-struct median_queue_t {
+/* ------------------------------------------------------------------------- *
+ * Data structure defining a median queue                                    *
+ * ------------------------------------------------------------------------- */
+typedef struct median_queue_t {
     double* circular;
     double* sorted;
     size_t size;
     size_t start;
-};
-/* ========================================================================= *
- *                               PROTOTYPES                                  *
- * ========================================================================= */
+}MedianQueue;
 
 /* ------------------------------------------------------------------------- *
  * Exchange 2 values of an array                                             *
@@ -30,9 +29,9 @@ struct median_queue_t {
  *  -j            The indice of the second element                           *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
-void exchange(double* array,size_t i, size_t j);
+void exchange(int* array,size_t i, size_t j);
 
 /* ------------------------------------------------------------------------- *
  * Partition a given array in 2 sub array around a pivot                     *
@@ -45,7 +44,7 @@ void exchange(double* array,size_t i, size_t j);
  *  -new_pivot+1      The array index after the one array's elements are big-*
  *                    ger than the pivot                                     *
  * ------------------------------------------------------------------------- */
-size_t partitioning(double* array, size_t pivot, size_t end);
+size_t partitioning(int* array, size_t pivot, size_t end);
 
 /* ------------------------------------------------------------------------- *
  * Implementation of the Quick Sort algorithm                                *
@@ -55,9 +54,9 @@ size_t partitioning(double* array, size_t pivot, size_t end);
  *  -end          The size of the array                                      *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
-void quickSort(double* array, size_t begin, size_t end);
+void quickSort(int* array, size_t begin, size_t end);
 
 /* ------------------------------------------------------------------------- *
  * Sort an array of size lenght using the Quick Sort algorithm               *
@@ -66,21 +65,64 @@ void quickSort(double* array, size_t begin, size_t end);
  *  -length       The size of the array                                      *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
 void sort(double* array, size_t length);
+
+/* ------------------------------------------------------------------------- *
+ * Create a median queue such as define by the data structure median_queue_t *
+ * PARAMETERS                                                                *
+ *  -values       A vector containing the median queue elements              *
+ *  -size         The size of the median queue                               *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  -mq           A pointer to the created MedianQueue element               *
+ * ------------------------------------------------------------------------- */
+MedianQueue* mqCreate(const double* values, size_t size);
+
+/* ------------------------------------------------------------------------- *
+ * Delete an existing median queue                                           *
+ * PARAMETERS                                                                *
+ *  -mq           A pointer to the median queue to delete                    *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  /                                                                        *
+ * ------------------------------------------------------------------------- */
+void mqFree(MedianQueue* mq);
+
+/* ------------------------------------------------------------------------- *
+ * Update a median queue                                                     *
+ * PARAMETERS                                                                *
+ *  -mq           A pointer to the median queue to update                    *
+ *  -value        The value to add in the median queue                       *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  /                                                                        *
+ * ------------------------------------------------------------------------- */
+void mqUpdate(MedianQueue* mq, double value);
+
+/* ------------------------------------------------------------------------- *
+ * Provide the median value of a median queue                                *
+ * PARAMETERS                                                                *
+ *  -mq           A pointer to the median queue to update                    *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  -middle       The middle of the sorted element of mq                     *
+ *  -INFINITY     Otherwise                                                  *
+ * ------------------------------------------------------------------------- */
+double mqMedian(const MedianQueue* mq);
 
 /* ========================================================================= *
  *                                 FUNCTIONS                                 *
  * ========================================================================= */
 
-void exchange(double* array,size_t i, size_t j){
+void exchange(int* array,size_t i, size_t j){
     int temporary = array[i];
     array[i] = array[j];
     array[j] = temporary;
 }
 
-size_t partitioning(double* array, size_t pivot, size_t end){
+size_t partitioning(int* array, size_t pivot, size_t end){
     size_t j=0, new_pivot = pivot-1;
     for(j=pivot;j<end;j++){
         if(array[j] <= array[end]){
@@ -92,7 +134,7 @@ size_t partitioning(double* array, size_t pivot, size_t end){
     return new_pivot+1;
 }
 
-void quickSort(double* array, size_t begin, size_t end){
+void quickSort(int* array, size_t begin, size_t end){
     if(begin<end){
         size_t q = partitioning(array, begin, end);
         quickSort(array,begin, q-1);
@@ -101,7 +143,7 @@ void quickSort(double* array, size_t begin, size_t end){
 }
 
 void sort(double* array, size_t length){
-    //printf("Sorted using : QuickSort\n");
+    printf("Sorted using : QuickSort\n");
 
     if(!array || length<=1){
         return;
@@ -110,9 +152,6 @@ void sort(double* array, size_t length){
     quickSort(array, 0, length-1);
 }
 
-/* ------------------------------------------------------------------------- *
- * Double comparison function.                                               *
- * ------------------------------------------------------------------------- */
 static int compareDouble(const void* d1, const void* d2);
 static int compareDouble(const void* d1, const void* d2) {
     double diff = (*(double*) d2 - *(double*) d1);
@@ -173,5 +212,6 @@ void mqUpdate(MedianQueue* mq, double value){
 
 double mqMedian(const MedianQueue* mq){
     if(!mq){ return INFINITY; }
-    return mq->sorted[mq->size / 2];
+    double middle = mq->sorted[mq->size / 2];
+    return middle;
 }

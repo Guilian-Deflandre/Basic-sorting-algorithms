@@ -43,7 +43,7 @@ int main(void){
 
     const double sec = cpuTimeUsedToSort(array, sizeArray);
 
-    printf("CPU Time pour sizeArray = %zu: %f\n", sizeArray, sec);
+    printf("CPU Time for sizeArray = %zu: %f\n", sizeArray, sec);
     printf("\n");
 
     return 0;

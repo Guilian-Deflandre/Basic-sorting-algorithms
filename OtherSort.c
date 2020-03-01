@@ -1,30 +1,38 @@
 /* ========================================================================= *
- * MergeSort
- * Implementation of the Merge Sort algorithm.
+ * OtherSort.c                                                               *
+ * Implementation of the Other Sort algorithm.                               *
  * ========================================================================= */
 
 #include <stdio.h>
-#include "Sort.h"
+
 
 /* ========================================================================= *
- *                                 PROTOTYPES
+ *                                 PROTOTYPES                                *
  * ========================================================================= */
 
 /* ------------------------------------------------------------------------- *
- * Exchange 2 values of an array
- * PARAMETERS
- * array        The array which contain the 2 elements
- * i            The indice of the first element
- * j            The indice of the second element
+ * Exchange 2 values of an array                                             *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ * array        The array which contain the 2 elements                       *
+ * i            The index of the first element                               *
+ * j            The index of the second element                              *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
 void exchange(int* array,int i, int j);
 
 /* ------------------------------------------------------------------------- *
- *Sort an array recursively
- * PARAMETERS
- * array        The array to treat
- * begin        The beginnig of the array
- * end          The end of the array
+ * Sort an array recursively                                                 *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ * array        The array to treat                                           *
+ * begin        The beginnig of the array                                    *
+ * end          The end of the array                                         *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
 void otherSort(int* array, int begin, int end);
 
@@ -37,10 +45,10 @@ void exchange(int* array,int i, int j){
     array[i] = array[j];
     array[j] = temporary;
 }
-/* ------------------------------------------------------------------------ */
+
 void otherSort(int* array, int begin, int end){
     int thirdArray;
-    
+
     if (array[begin] > array[end]){
         exchange(array, begin, end);
     }
@@ -52,13 +60,13 @@ void otherSort(int* array, int begin, int end){
     otherSort(array, begin + thirdArray, end);
     otherSort(array, begin, end - thirdArray);
 }
-/* ------------------------------------------------------------------------ */
+
 void sort(int* array, size_t lenght){
-    printf("Tier par OtherSort  \n");
-    
+    printf("Sorted using : OtherSort\n");
+
     if(!array || lenght<=1){
         return;
     }
-    
+
     otherSort(array, 0, lenght-1);
 }
