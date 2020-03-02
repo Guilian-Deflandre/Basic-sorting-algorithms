@@ -20,9 +20,9 @@
  *  -heapSize     The size of the heap to transform                          *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
-void maxHeapify(int* array,int node, int heapSize);
+void maxHeapify(int* array, size_t node, size_t heapSize);
 
 /* ------------------------------------------------------------------------- *
  * Exchange 2 values of an array                                             *
@@ -33,9 +33,9 @@ void maxHeapify(int* array,int node, int heapSize);
  *  -j            The second element's index                                 *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
-void exchange(int* array,int i, int j);
+void exchange(int* array, size_t i, size_t j);
 
 /* ------------------------------------------------------------------------- *
  * Build an heap based on a given array                                      *
@@ -45,45 +45,53 @@ void exchange(int* array,int i, int j);
  *  -length       The size of this array                                     *
  *                                                                           *
  * RETURN                                                                    *
- * /                                                                         *
+ *  /                                                                        *
  * ------------------------------------------------------------------------- */
-void buildMaxHeap(int* array, int length);
+void buildMaxHeap(int* array, size_t length);
+
+/* ------------------------------------------------------------------------- *
+ * Sort an array using the Heap Sort algorithm                               *
+ *                                                                           *
+ * PARAMETERS                                                                *
+ *  -array        The array used to build an heap                            *
+ *  -length       The size of this array                                     *
+ *                                                                           *
+ * RETURN                                                                    *
+ *  /                                                                        *
+ * ------------------------------------------------------------------------- */
+void heapSort(int* array, size_t length);
 
 /* ========================================================================= *
  *                                FUNCTIONS                                  *
  * ========================================================================= */
 
-void exchange(int* array,int i, int j){
+void exchange(int* array, size_t i, size_t j){
     int temporary = array[i];
     array[i] = array[j];
     array[j] = temporary;
 }
 
-void buildMaxHeap(int* array, int length){
-    for(int i=(length)/2;i>=0;i--){
+void buildMaxHeap(int* array, size_t length){
+    for(size_t i=(length/2); i>=0; i--){
         maxHeapify(array, i, length);
     }
 }
 
-void maxHeapify(int* array, int node, int heapSize){
-    int left = (2*node), right = (2*node)+1, largest;
+void maxHeapify(int* array, size_t node, size_t heapSize){
+    size_t left = (2*node), right = (2*node)+1, largest = node;
 
-    if(left<=array[heapSize] && array[left]>array[node]){
+    if(left<heapSize && array[left]>array[node]){
         largest = left;
-    }else{
-        largest = node;
-    }
-    if(right<=array[heapSize] && array[right]>array[node]){
+    }if(right<heapSize && array[right]>array[largest]){
         largest = right;
-    }
-    if(largest!=node){
+    }if(largest != node){
         exchange(array, node, largest);
         maxHeapify(array, largest, heapSize);
     }
 }
 
-void sort(int* array, size_t length){
-    int  heapSize = length;
+void heapSort(int* array, size_t length){
+    size_t heapSize = length;
     printf("Sorted using : HeapSort\n");
 
     if(!array || length<=1){
@@ -91,9 +99,13 @@ void sort(int* array, size_t length){
     }
 
     buildMaxHeap(array, length);
-    for(int i=length;i>=0;i--){
-        exchange(array, i, 1);
+    for(size_t i=heapSize-1; i > 0; i--){
+        exchange(array, i, 0);
         heapSize--;
         maxHeapify(array, 0, heapSize);
     }
+}
+
+void sort(int* array, size_t length){
+    heapSort(array, length);
 }
