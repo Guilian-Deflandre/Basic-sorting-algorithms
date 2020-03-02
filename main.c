@@ -46,5 +46,7 @@ int main(void){
     printf("CPU Time for sizeArray = %zu: %f\n", sizeArray, sec);
     printf("\n");
 
+    free(array);
+
     return 0;
 }
