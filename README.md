@@ -1,6 +1,7 @@
 # Basic sorting algorithms
 
-## In this repository are implemented several basic sorting algorithms, namely
+## Basics
+In this repository are implemented several basic sorting algorithms, namely
 
 * The Insertion Sort algorithm in `InsertionSort.c`;
 * The Quick Sort algorithm in `QuickSort.c`;
