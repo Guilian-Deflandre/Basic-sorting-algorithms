@@ -66,7 +66,7 @@ int main(void){
     printArray(array, sizeArray);
 
     const double sec = cpuTimeUsedToSort(array, sizeArray);
-
+    
     printf("Sorted array:");
     printArray(array, sizeArray);
 
